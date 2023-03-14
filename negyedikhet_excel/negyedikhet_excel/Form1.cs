@@ -97,7 +97,7 @@ namespace negyedikhet_excel
                 values[counter, 5] = item.NumberOfRooms;
                 values[counter, 6] = item.FloorArea;
                 values[counter, 7] = item.Price;
-                values[counter, 8] = "=(" + GetCell(counter+2, 8) + "/" + GetCell(counter + 2, 7 + ")*1000000");
+                values[counter, 8] = "=(" + GetCell(counter+2, 8) + "/" + GetCell(counter + 2, 7) + ")*1000000";
                 counter++;
             }
             xlSheet.get_Range(
