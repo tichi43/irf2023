@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using week05.ServiceReference1;
-using week05.Entities;
 using System.Xml;
+using week05.Entities;
+using week05.ServiceReference1;
 
 namespace week05
 {
@@ -20,9 +14,21 @@ namespace week05
         public Form1()
         {
             InitializeComponent();
-            elsoFel();
+            RefreshData();
+        }
+
+        void RefreshData()
+        {
+            Rates.Clear();
+            //elsoFel();
             dataGridView1.DataSource = Rates;
-            masodikFel();
+            if (comboBox1.SelectedItem != null)
+            {
+                masodikFel();
+                
+            }
+
+
         }
 
         string elsoFel()
@@ -30,9 +36,9 @@ namespace week05
             var mnbservice = new MNBArfolyamServiceSoapClient();
             var request = new GetExchangeRatesRequestBody()
             {
-                currencyNames = "EUR",
-                startDate = "2020-01-01",
-                endDate = "2020-06-30"
+                currencyNames = comboBox1.SelectedItem.ToString(),
+                startDate = dateTimePicker1.Value.ToString(),
+                endDate = dateTimePicker2.Value.ToString()
             };
 
             // Ebben az esetben a "var" a GetExchangeRates visszatérési értékéből kapja a típusát.
@@ -72,6 +78,18 @@ namespace week05
                 if (unit != 0)
                     rate.Value = value / unit;
             }
+            chartRateData.DataSource = Rates;
+        }
+
+        private void harmadikFel()
+        {
+
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RefreshData();
         }
     }
 }
